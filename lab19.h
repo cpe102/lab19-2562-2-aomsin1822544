@@ -4,6 +4,7 @@
 #include<cstdlib>
 #include<iomanip>
 
+
 using namespace std;
 
 class Unit{
@@ -35,7 +36,7 @@ void Unit::create(string t){
 		def = rand()%3+9;
 	}else if(t == "Monster"){
 		type = "Monster";
-		name = "Monster";
+		name = "PUI";
 		hpmax = rand()%20+200;
 		atk = rand()%5+25;
 		def = rand()%3+5;
@@ -70,6 +71,46 @@ void Unit::newTurn(){
 //
 //
 //
+int Unit::attack(Unit &x){
+	    
+		return x.beAttacked(atk);
+	
+	}
+ 
+int Unit:: beAttacked(int oppatk){
+	int dmg= 0;
+	dmg = oppatk - def;
+          
+		   if(guard_on==true){
+			     dmg = dmg/3;
+		   }
+			     hp =hp - dmg;
+				 return dmg;
+		
+}
+
+int Unit::heal(){
+	int heal =rand()%21+10;
+	if(heal+hp > hpmax){
+	      heal=hpmax-hp;
+		  hp+hp+heal;
+	}else{
+		hp = hp+heal;
+	}
+		
+		return heal;
+		
+	
+}
+void Unit::guard(){
+	guard_on = true;
+}
+
+bool Unit::isDead(){
+	if(hp <= 0) return true;
+	else return false;
+
+}
 
 void drawScene(char p_action,int p,char m_action,int m){
 	cout << "                                                       \n";
